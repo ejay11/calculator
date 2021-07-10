@@ -1,0 +1,10 @@
+#calculator-body{
+    display: grid;
+    width: 400px;
+    height: 500px;
+    justify-items: center;
+    align-items: center;
+    background-color: pink;
+    margin: auto;
+    border-radius: 25px;
+}
