@@ -1,7 +1,7 @@
 #calculator-body{
     display: grid;
     width: 400px;
-    height: 400px;
+    height: 500px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
     background-color: pink;
@@ -19,6 +19,12 @@
 #display{
     grid-column: span 4;
     text-align: right;
+}
+
+#clear{
+    /*grid-column: span 2;*/
+    grid-column-start: 3;
+    grid-column-end: 5;
 }
 
 #calculate{
