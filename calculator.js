@@ -27,18 +27,62 @@ const operate = ((operator, num1, num2) => {
     return divide(num1, num2);
 
 })
+
+const calculateDisplay = () =>{
+    display = operate(operator, num1, num2);
+    document.querySelector('#display').innerHTML = display;
+
+}
 //--CALCULATOR DISPLAY FUNCTIONS--
 
-const displayText = ((buttonClicked) => {
-    let value = buttonClicked;
-    document.getElementById(display).innerHTML = value;
+let num1 = '';
+let num2 = '';
+let operator = [];
 
+const saveNum1 = ((buttonName) => {
+    //display.push(buttonName.target.innerHTML);
+    num1 += buttonName.target.innerHTML;
+    document.querySelector('#display').innerHTML = num1;
+    num1 = parseFloat(num1);
+    return num1;
 })
 
-const sayHello =(() => {
-    console.log("working")
-    alert ('Hello');
+const operatorPush = (buttonPushed) => {
+    buttons.forEach((button) => {button.removeEventListener('click', saveNum1);
+    operator = buttonPushed.target.id;
+    console.log (typeof operator);
+    buttons.forEach((button) => {button.addEventListener('click', saveNum2);
+    return operator;
+})})}
+
+const saveNum2 = ((buttonName) => {
+    num2 += buttonName.target.innerHTML;
+    document.querySelector ('#display').innerHTML = num2;
+    num2 = parseFloat(num2);
+    return num2
 })
+
+const startOver = () => {
+    num1 = '';
+    operator = '';
+    num2 = '';
+    document.querySelector ('#display').innerHTML = '0';
+    buttons.forEach((button) => {button.removeEventListener('click', saveNum2)});
+    buttons.forEach((button) => {button.addEventListener('click', saveNum1)});
+    return num1, operator, num2;
+}
+
+//--BUTTON EVENT LISTENERS
 let buttons = document.getElementsByClassName('calc-btn');
 buttons = Array.from(buttons);
-buttons.forEach((button) => {button.addEventListener('click', sayHello)});
+buttons.forEach((button) => {button.addEventListener('click', saveNum1)});
+
+let operators = document.getElementsByClassName('operator');
+operators = Array.from(operators);
+operators.forEach((operator) => {operator.addEventListener('click', operatorPush)}); 
+
+let calculate = document.getElementById('calculate');
+calculate.addEventListener("click", calculateDisplay);
+
+let clearButton = document.getElementById('clear');
+clearButton.addEventListener("click", startOver);
