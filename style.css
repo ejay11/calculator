@@ -1,17 +1,40 @@
 #calculator-body{
     display: grid;
-    width: 400px;
+    width: 350px;
     height: 500px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
-    background-color: pink;
+    background-color:#bfd3c1;
     margin: auto;
+    padding: 5px;
     border-radius: 25px;
 }
 /*Button Styling*/
 .calc-btn{
     border-radius: 5px;
-    background-color: white;
+    border: none;
+    background-color: #E8F6EF;
+    font-size: 36px;
+    text-align: center;
+    margin: 5px;
+    padding: 5px;
+    /*border: 2px solid #f28482;*/
+}
+
+#clear {
+    border-radius: 10px;
+    border: none;
+    background-color: #5AA897;
+    font-size: 36px;
+    text-align: center;
+    margin: 5px;
+    padding: 5px;
+}
+
+#calculate {
+    border-radius: 10px;
+    border: none;
+    background-color: #f6bd60;
     font-size: 36px;
     text-align: center;
     margin: 5px;
@@ -20,7 +43,8 @@
 
 .operator {
     border-radius: 5px;
-    background-color: white;
+    border: none;
+    background-color: #FADEAF;
     font-size: 36px;
     text-align: center;
     margin: 5px;

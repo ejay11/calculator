@@ -33,10 +33,11 @@ const calculateDisplay = () =>{
     document.querySelector('#display').innerHTML = display;
 
 }
-//--CALCULATOR DISPLAY FUNCTIONS--
+//--SAVING INPUT AND DISPLAY FUNCTIONS--
 
 let num1 = '';
 let num2 = '';
+let answer = '';
 let operator = [];
 
 const saveNum1 = ((buttonName) => {
@@ -48,12 +49,24 @@ const saveNum1 = ((buttonName) => {
 })
 
 const operatorPush = (buttonPushed) => {
-    buttons.forEach((button) => {button.removeEventListener('click', saveNum1);
+    //if num1 is not empty and num2 is empty
+    if (num1 !== '' && num2 == ''){
+    buttons.forEach((button) => {button.removeEventListener('click', saveNum1)});
     operator = buttonPushed.target.id;
     console.log (typeof operator);
-    buttons.forEach((button) => {button.addEventListener('click', saveNum2);
+    buttons.forEach((button) => {button.addEventListener('click', saveNum2)});
+}
+    //else if num1 is not empty and num2 is not empty
+    else if (num1 !== '' && num2 !== '' ){
+        num1 = operate (operator, num1, num2);
+        operator = buttonPushed.target.id;
+        console.log(num1);
+        num2 = '';
+    }
+    else 
+    document.querySelector('#display').innerHTML = 'ERROR';
     return operator;
-})})}
+}
 
 const saveNum2 = ((buttonName) => {
     num2 += buttonName.target.innerHTML;
@@ -72,7 +85,7 @@ const startOver = () => {
     return num1, operator, num2;
 }
 
-//--BUTTON EVENT LISTENERS
+//--BUTTON EVENT LISTENERS--
 let buttons = document.getElementsByClassName('calc-btn');
 buttons = Array.from(buttons);
 buttons.forEach((button) => {button.addEventListener('click', saveNum1)});
