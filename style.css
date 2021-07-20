@@ -21,6 +21,12 @@
     /*border: 2px solid #f28482;*/
 }
 
+.calc-btn:active{
+    background-color: #5AA897;
+    box-shadow: 5px;
+    transform: translateY(4px);
+}
+
 #clear {
     border-radius: 10px;
     border: none;
@@ -29,6 +35,11 @@
     text-align: center;
     margin: 5px;
     padding: 5px;
+}
+#clear:active{
+    background-color: #E8F6EF;
+    box-shadow: 5px;
+    transform: translateY(4px);
 }
 
 #calculate {
@@ -40,7 +51,11 @@
     margin: 5px;
     padding: 5px;
 }
-
+#calculate:active{
+    background-color: #FADEAF;
+    box-shadow: 5px;
+    transform: translateY(4px);
+}
 .operator {
     border-radius: 5px;
     border: none;
@@ -49,6 +64,12 @@
     text-align: center;
     margin: 5px;
     padding: 5px;
+}
+
+.operator:active{
+    background-color: #f6bd60;
+    box-shadow: 5px;
+    transform: translateY(4px);
 }
 
 #display{

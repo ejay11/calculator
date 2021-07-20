@@ -28,7 +28,7 @@ const operate = ((operator, num1, num2) => {
 
 })
 
-const calculateDisplay = () =>{
+const calculateDisplay = () => {
     display = operate(operator, num1, num2);
     document.querySelector('#display').innerHTML = display;
 
@@ -49,28 +49,28 @@ const saveNum1 = ((buttonName) => {
 })
 
 const operatorPush = (buttonPushed) => {
-    //if num1 is not empty and num2 is empty
-    if (num1 !== '' && num2 == ''){
-    buttons.forEach((button) => {button.removeEventListener('click', saveNum1)});
-    operator = buttonPushed.target.id;
-    console.log (typeof operator);
-    buttons.forEach((button) => {button.addEventListener('click', saveNum2)});
-}
-    //else if num1 is not empty and num2 is not empty
-    else if (num1 !== '' && num2 !== '' ){
-        num1 = operate (operator, num1, num2);
+    if (num1 !== '' && num2 == '') {
+        buttons.forEach((button) => {
+            button.removeEventListener('click', saveNum1)
+        });
+        operator = buttonPushed.target.id;
+        console.log(typeof operator);
+        buttons.forEach((button) => {
+            button.addEventListener('click', saveNum2)
+        });
+    } else if (num1 !== '' && num2 !== '') {
+        num1 = operate(operator, num1, num2);
         operator = buttonPushed.target.id;
         console.log(num1);
         num2 = '';
-    }
-    else 
-    document.querySelector('#display').innerHTML = 'ERROR';
+    } else
+        document.querySelector('#display').innerHTML = 'ERROR';
     return operator;
 }
 
 const saveNum2 = ((buttonName) => {
     num2 += buttonName.target.innerHTML;
-    document.querySelector ('#display').innerHTML = num2;
+    document.querySelector('#display').innerHTML = num2;
     num2 = parseFloat(num2);
     return num2
 })
@@ -79,20 +79,28 @@ const startOver = () => {
     num1 = '';
     operator = '';
     num2 = '';
-    document.querySelector ('#display').innerHTML = '0';
-    buttons.forEach((button) => {button.removeEventListener('click', saveNum2)});
-    buttons.forEach((button) => {button.addEventListener('click', saveNum1)});
+    document.querySelector('#display').innerHTML = '0';
+    buttons.forEach((button) => {
+        button.removeEventListener('click', saveNum2)
+    });
+    buttons.forEach((button) => {
+        button.addEventListener('click', saveNum1)
+    });
     return num1, operator, num2;
 }
 
 //--BUTTON EVENT LISTENERS--
 let buttons = document.getElementsByClassName('calc-btn');
 buttons = Array.from(buttons);
-buttons.forEach((button) => {button.addEventListener('click', saveNum1)});
+buttons.forEach((button) => {
+    button.addEventListener('click', saveNum1)
+});
 
 let operators = document.getElementsByClassName('operator');
 operators = Array.from(operators);
-operators.forEach((operator) => {operator.addEventListener('click', operatorPush)}); 
+operators.forEach((operator) => {
+    operator.addEventListener('click', operatorPush)
+});
 
 let calculate = document.getElementById('calculate');
 calculate.addEventListener("click", calculateDisplay);
