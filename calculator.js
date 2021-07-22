@@ -1,5 +1,6 @@
 // --CALCULATOR MATH FUNCTIONS--
 
+// <Eric>:  This is great! Putting all your functions at the top!
 const add = ((num1, num2) => {
     return num1 + num2;
 });
