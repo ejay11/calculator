@@ -1,5 +1,4 @@
 // --CALCULATOR MATH FUNCTIONS--
-
 const add = ((num1, num2) => {
     return num1 + num2;
 });
@@ -16,21 +15,42 @@ const divide = ((num1, num2) => {
     return num1 / num2;
 });
 
-const operate = ((operator, num1, num2) => {
-    if (operator == '+') {
+// OPERATE FUNCION WITH SWITCH STATEMENT
+const operate = (operator, num1, num2) => {
+switch(operator) {
+    case '+':
         return add(num1, num2);
-    } else if (operator == '-') {
+      break;
+    case '-':
         return subtract(num1, num2);
-    } else if (operator == 'x') {
+      break;
+    case 'x':
         return multiply(num1, num2);
-    } else(operator == '/')
-    return divide(num1, num2);
+      break;
+    case '/':
+        return divide(num1, num2);
+    break
+    default:
+       return 'ERROR';
+  } 
+}
+// OPERATE COMMAND WITH IF/ELSE STATEMENT
+// const operate = ((operator, num1, num2) => {
+//     if (operator == '+') {
+//         return add(num1, num2);
+//     } else if (operator == '-') {
+//         return subtract(num1, num2);
+//     } else if (operator == 'x') {
+//         return multiply(num1, num2);
+//     } else(operator == '/')
+//     return divide(num1, num2);
 
-})
+// })
 
 const calculateDisplay = () => {
-    display = operate(operator, num1, num2);
-    document.querySelector('#display').innerHTML = display;
+
+    const display = operate(operator, num1, num2);   
+    displayElem.innerText = display;
 
 }
 //--SAVING INPUT AND DISPLAY FUNCTIONS--
@@ -39,11 +59,11 @@ let num1 = '';
 let num2 = '';
 let answer = '';
 let operator = [];
+let displayElem = document.querySelector('#display');
 
 const saveNum1 = ((buttonName) => {
-    //display.push(buttonName.target.innerHTML);
-    num1 += buttonName.target.innerHTML;
-    document.querySelector('#display').innerHTML = num1;
+    num1 += buttonName.target.innerText;
+    displayElem.innerText = num1;
     num1 = parseFloat(num1);
     return num1;
 })
@@ -64,13 +84,13 @@ const operatorPush = (buttonPushed) => {
         console.log(num1);
         num2 = '';
     } else
-        document.querySelector('#display').innerHTML = 'ERROR';
+        displayElem.innerText = 'ERROR';
     return operator;
 }
 
 const saveNum2 = ((buttonName) => {
-    num2 += buttonName.target.innerHTML;
-    document.querySelector('#display').innerHTML = num2;
+    num2 += buttonName.target.innerText;
+    displayElem.innerText = num2;
     num2 = parseFloat(num2);
     return num2
 })
@@ -79,7 +99,7 @@ const startOver = () => {
     num1 = '';
     operator = '';
     num2 = '';
-    document.querySelector('#display').innerHTML = '0';
+    displayElem.innerText = '0';
     buttons.forEach((button) => {
         button.removeEventListener('click', saveNum2)
     });

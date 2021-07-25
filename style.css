@@ -1,16 +1,17 @@
-#calculator-body{
+#calculator-body {
     display: grid;
     width: 350px;
     height: 500px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
-    background-color:#bfd3c1;
+    background-color: #bfd3c1;
     margin: auto;
     padding: 5px;
     border-radius: 25px;
 }
+
 /*Button Styling*/
-.calc-btn{
+.calc-btn {
     border-radius: 5px;
     border: none;
     background-color: #E8F6EF;
@@ -21,7 +22,7 @@
     /*border: 2px solid #f28482;*/
 }
 
-.calc-btn:active{
+.calc-btn:active {
     background-color: #5AA897;
     box-shadow: 5px;
     transform: translateY(4px);
@@ -36,7 +37,8 @@
     margin: 5px;
     padding: 5px;
 }
-#clear:active{
+
+#clear:active {
     background-color: #E8F6EF;
     box-shadow: 5px;
     transform: translateY(4px);
@@ -51,11 +53,13 @@
     margin: 5px;
     padding: 5px;
 }
-#calculate:active{
+
+#calculate:active {
     background-color: #FADEAF;
     box-shadow: 5px;
     transform: translateY(4px);
 }
+
 .operator {
     border-radius: 5px;
     border: none;
@@ -66,22 +70,22 @@
     padding: 5px;
 }
 
-.operator:active{
+.operator:active {
     background-color: #f6bd60;
     box-shadow: 5px;
     transform: translateY(4px);
 }
 
-#display{
+#display {
     grid-column: span 4;
     text-align: right;
 }
 
-#clear{
+#clear {
     grid-column-start: 3;
     grid-column-end: 5;
 }
 
-#calculate{
+#calculate {
     grid-column: span 2;
 }
