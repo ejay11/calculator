@@ -1,12 +1,4 @@
 // --CALCULATOR MATH FUNCTIONS--
-/*
-<Eric>: Delete these comments after you read them.
-*/
-
-/*
-<Eric>:  This is great! Putting all your functions at the top!
-Nice use of fat-arrow functions!
-*/
 const add = ((num1, num2) => {
     return num1 + num2;
 });
@@ -23,86 +15,42 @@ const divide = ((num1, num2) => {
     return num1 / num2;
 });
 
-/*
-<Eric>: Later, in our 3rd iteration, we'll learn to do something even cooler.
-For now, in our first iteration, is there a way to use a "switch" statement,
-instead of if/else?
-
-https://www.w3schools.com/js/js_switch.asp
-
- */
-const operate = ((operator, num1, num2) => {
-    if (operator == '+') {
+// OPERATE FUNCION WITH SWITCH STATEMENT
+const operate = (operator, num1, num2) => {
+switch(operator) {
+    case '+':
         return add(num1, num2);
-    } else if (operator == '-') {
+      break;
+    case '-':
         return subtract(num1, num2);
-    } else if (operator == 'x') {
+      break;
+    case 'x':
         return multiply(num1, num2);
-    } else(operator == '/')
-    return divide(num1, num2);
+      break;
+    case '/':
+        return divide(num1, num2);
+    break
+    default:
+       return 'ERROR';
+  } 
+}
+// OPERATE COMMAND WITH IF/ELSE STATEMENT
+// const operate = ((operator, num1, num2) => {
+//     if (operator == '+') {
+//         return add(num1, num2);
+//     } else if (operator == '-') {
+//         return subtract(num1, num2);
+//     } else if (operator == 'x') {
+//         return multiply(num1, num2);
+//     } else(operator == '/')
+//     return divide(num1, num2);
 
-})
+// })
 
 const calculateDisplay = () => {
-    /*
-    <Eric>: in JS, it's important to scope your variables!
-    The line below should be:
 
-    ```
-    const display = operate(operator, num1, num2);
-    ```
-
-    Default to `const` when declaring your variables.
-
-    By using `const`, we  tell Javascript two things:
-
-    1. This variable `display` is not a "global" variable. It will only be used
-    within the scope of this function!
-    2. This variable `display` will only ever be assigned a value ONCE.
-    (otherwise, we would have declared it with `let` instead of `const`.)
-
-    https://alligator.io/js/var-let-const/
-     */
-    display = operate(operator, num1, num2);
-
-    /*
-    <Eric>:
-    1. Instead of using `.innerHTML` here, you could be even safer and use
-    `.innerText`. You could probably just do a straight replacement everywhere
-    in your code(?) InnerText ensures you'll never grab any HTML that might be
-    in that element - Just the unformatted text content.
-
-    https://betterprogramming.pub/whats-best-innertext-vs-innerhtml-vs-textcontent-903ebc43a3fc
-
-    2. So, as you get better at JS, you'll start to notice where you're
-    repeating yourself. Part of this function is a repeat.
-
-    ```
-    document.querySelector('#display')
-    ```
-
-    ### What IF?
-
-    We seem to want to reference that element on the page - a lot.
-    Also, every time we do a `querySelector`, we make js parse through the
-    DOM to find the element. We really only need to find it once - it's not
-    going anywhere.
-
-    So, could we assign the value of this element to a global variable  at the
-    top of the script?
-
-    ```
-    let displayElem = document.querySelector('#display')
-    ```
-
-    Which would then mean that in this function (and any other function that
-    references the #display elem, you can simply then do this:
-
-    ```
+    const display = operate(operator, num1, num2);   
     displayElem.innerText = display;
-    ```
-     */
-    document.querySelector('#display').innerHTML = display;
 
 }
 //--SAVING INPUT AND DISPLAY FUNCTIONS--
@@ -111,16 +59,11 @@ let num1 = '';
 let num2 = '';
 let answer = '';
 let operator = [];
+let displayElem = document.querySelector('#display');
 
 const saveNum1 = ((buttonName) => {
-    //display.push(buttonName.target.innerHTML);
-    num1 += buttonName.target.innerHTML;
-
-    /*
-    <Eric>: Hmmm. this looks familiar... I wonder if we can simplify this
-    with the suggestion I made above?
-     */
-    document.querySelector('#display').innerHTML = num1;
+    num1 += buttonName.target.innerText;
+    displayElem.innerText = num1;
     num1 = parseFloat(num1);
     return num1;
 })
@@ -141,13 +84,13 @@ const operatorPush = (buttonPushed) => {
         console.log(num1);
         num2 = '';
     } else
-        document.querySelector('#display').innerHTML = 'ERROR';
+        displayElem.innerText = 'ERROR';
     return operator;
 }
 
 const saveNum2 = ((buttonName) => {
-    num2 += buttonName.target.innerHTML;
-    document.querySelector('#display').innerHTML = num2;
+    num2 += buttonName.target.innerText;
+    displayElem.innerText = num2;
     num2 = parseFloat(num2);
     return num2
 })
@@ -156,7 +99,7 @@ const startOver = () => {
     num1 = '';
     operator = '';
     num2 = '';
-    document.querySelector('#display').innerHTML = '0';
+    displayElem.innerText = '0';
     buttons.forEach((button) => {
         button.removeEventListener('click', saveNum2)
     });
