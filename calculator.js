@@ -15,7 +15,12 @@ const divide = ((num1, num2) => {
     return num1 / num2;
 });
 
-// OPERATE FUNCION WITH SWITCH STATEMENT
+// OPERATE FUNCTION WITH SWITCH STATEMENT
+/* 
+Wow! Eric tells me this is a great way to write this function. 
+It's so short and simple and nice. 
+Way to go, me.
+*/
 const operate = (operator, num1, num2) => {
 switch(operator) {
     case '+':
