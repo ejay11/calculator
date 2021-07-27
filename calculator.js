@@ -1,3 +1,23 @@
+/*
+<Eric>:
+Part 1:
+Ok, this is kind of advanced, but once you get it, you will be unstoppable.
+This is a 2 part-er.
+
+You're going to make a nice constant called `MATH_FUNCS`.
+It's going to be an object literal.
+You're going to name each property/key in this object literal to a name of each
+of your math functions below.
+Each property's value will be it's corresponding one-line fat-arrow function.
+
+```
+{
+  "add": (num1, num2) => return num1 + num2;,
+  "subtract" .... blah blah blah
+}
+```
+ */
+
 // --CALCULATOR MATH FUNCTIONS--
 const add = ((num1, num2) => {
     return num1 + num2;
@@ -53,8 +73,28 @@ switch(operator) {
 // })
 
 const calculateDisplay = () => {
+    /*
+ <Eric>: Part 2.
+ Screw that switch statement above, as well as that whole `operate` function!
+ Instead, we're going to use the object literal we
+ created above to simply call the right function!
+ This is commonly called a "lookup table" or a "lookup map", and it's super fun
+ for a lot of cool reasons that you'll see down the road.
 
-    const display = operate(operator, num1, num2);   
+ I'm just giving you a hint as to what to do here, more than tell you explicitly.
+
+ https://dev.to/k_penguin_sato/use-lookup-tables-for-cleaning-up-your-js-ts-code-9gk
+
+ But one thing you'll also want to do is make it so that, if the "key" doesn't
+ exist in your lookup table, then you will want to set the display to
+ 'ERROR` here.
+
+ Remember, you want to find the value of the appropriate key in the lookup table;
+ it will return a function.
+ You then want to run that function. You can do it all in one line (or two).
+ */
+
+    const display = operate(operator, num1, num2);
     displayElem.innerText = display;
 
 }
