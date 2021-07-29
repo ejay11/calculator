@@ -1,24 +1,12 @@
-/*
-<Eric>:
-Part 1:
-Ok, this is kind of advanced, but once you get it, you will be unstoppable.
-This is a 2 part-er.
-
-You're going to make a nice constant called `MATH_FUNCS`.
-It's going to be an object literal.
-You're going to name each property/key in this object literal to a name of each
-of your math functions below.
-Each property's value will be it's corresponding one-line fat-arrow function.
-
-```
-{
-  "add": (num1, num2) => return num1 + num2;,
-  "subtract" .... blah blah blah
+//--ALL MATH FUNCTIONS--
+const MATH_FUNCS = {
+    add: (num1, num2) => num1 + num2,
+    subtract: (num1, num2) => num1 - num2,
+    multiply: (num1, num2) => num1 * num2,
+    divide: (num1, num2) => num1 / num2
 }
-```
- */
 
-// --CALCULATOR MATH FUNCTIONS--
+/* --OLD CALCULATOR MATH FUNCTIONS--
 const add = ((num1, num2) => {
     return num1 + num2;
 });
@@ -34,6 +22,7 @@ const multiply = ((num1, num2) => {
 const divide = ((num1, num2) => {
     return num1 / num2;
 });
+*/
 
 // OPERATE FUNCTION WITH SWITCH STATEMENT
 /* 
@@ -41,24 +30,24 @@ Wow! Eric tells me this is a great way to write this function.
 It is so short and simple and nice. 
 Way to go, me (Ellen Jaquette).
 */
-const operate = (operator, num1, num2) => {
-switch(operator) {
-    case '+':
-        return add(num1, num2);
-      break;
-    case '-':
-        return subtract(num1, num2);
-      break;
-    case 'x':
-        return multiply(num1, num2);
-      break;
-    case '/':
-        return divide(num1, num2);
-    break
-    default:
-       return 'ERROR';
-  } 
-}
+// const operate = (operator, num1, num2) => {
+// switch(operator) {
+//     case '+':
+//         return add(num1, num2);
+//       break;
+//     case '-':
+//         return subtract(num1, num2);
+//       break;
+//     case 'x':
+//         return multiply(num1, num2);
+//       break;
+//     case '/':
+//         return divide(num1, num2);
+//     break
+//     default:
+//        return 'ERROR';
+//   } 
+// }
 // OPERATE COMMAND WITH IF/ELSE STATEMENT
 // const operate = ((operator, num1, num2) => {
 //     if (operator == '+') {
@@ -73,6 +62,7 @@ switch(operator) {
 // })
 
 const calculateDisplay = () => {
+
     /*
  <Eric>: Part 2.
  Screw that switch statement above, as well as that whole `operate` function!
@@ -94,7 +84,7 @@ const calculateDisplay = () => {
  You then want to run that function. You can do it all in one line (or two).
  */
 
-    const display = operate(operator, num1, num2);
+    const display = MATH_FUNCS[operator](num1, num2);
     displayElem.innerText = display;
 
 }
