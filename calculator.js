@@ -6,78 +6,14 @@ const MATH_FUNCS = {
     divide: (num1, num2) => num1 / num2
 }
 
-/* --OLD CALCULATOR MATH FUNCTIONS--
-const add = ((num1, num2) => {
-    return num1 + num2;
-});
-
-const subtract = ((num1, num2) => {
-    return num1 - num2;
-});
-
-const multiply = ((num1, num2) => {
-    return num1 * num2;
-});
-
-const divide = ((num1, num2) => {
-    return num1 / num2;
-});
-*/
-
-// OPERATE FUNCTION WITH SWITCH STATEMENT
-/* 
-Wow! Eric tells me this is a great way to write this function. 
-It is so short and simple and nice. 
-Way to go, me (Ellen Jaquette).
-*/
-// const operate = (operator, num1, num2) => {
-// switch(operator) {
-//     case '+':
-//         return add(num1, num2);
-//       break;
-//     case '-':
-//         return subtract(num1, num2);
-//       break;
-//     case 'x':
-//         return multiply(num1, num2);
-//       break;
-//     case '/':
-//         return divide(num1, num2);
-//     break
-//     default:
-//        return 'ERROR';
-//   } 
-// }
-// OPERATE COMMAND WITH IF/ELSE STATEMENT
-// const operate = ((operator, num1, num2) => {
-//     if (operator == '+') {
-//         return add(num1, num2);
-//     } else if (operator == '-') {
-//         return subtract(num1, num2);
-//     } else if (operator == 'x') {
-//         return multiply(num1, num2);
-//     } else(operator == '/')
-//     return divide(num1, num2);
-
-// })
 
 const calculateDisplay = () => {
 
-    /*
- <Eric>: Part 2.
- Screw that switch statement above, as well as that whole `operate` function!
- Instead, we're going to use the object literal we
- created above to simply call the right function!
- This is commonly called a "lookup table" or a "lookup map", and it's super fun
- for a lot of cool reasons that you'll see down the road.
-
- I'm just giving you a hint as to what to do here, more than tell you explicitly.
-
- https://dev.to/k_penguin_sato/use-lookup-tables-for-cleaning-up-your-js-ts-code-9gk
+/*
 
  But one thing you'll also want to do is make it so that, if the "key" doesn't
  exist in your lookup table, then you will want to set the display to
- 'ERROR` here.
+ 'ERROR` here. 
 
  Remember, you want to find the value of the appropriate key in the lookup table;
  it will return a function.
@@ -114,7 +50,7 @@ const operatorPush = (buttonPushed) => {
             button.addEventListener('click', saveNum2)
         });
     } else if (num1 !== '' && num2 !== '') {
-        num1 = operate(operator, num1, num2);
+        num1 = MATH_FUNCS[operator](num1, num2);
         operator = buttonPushed.target.id;
         console.log(num1);
         num2 = '';
