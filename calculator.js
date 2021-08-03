@@ -19,8 +19,11 @@ const calculateDisplay = () => {
  it will return a function.
  You then want to run that function. You can do it all in one line (or two).
  */
+    // if (operator != "add" || operator != "subtract"){
+    //     displayElem.innerText = 'ERROR'
+    // } else
+    let display = MATH_FUNCS[operator](num1, num2);
 
-    const display = MATH_FUNCS[operator](num1, num2);
     displayElem.innerText = display;
 
 }
@@ -57,6 +60,16 @@ const operatorPush = (buttonPushed) => {
     } else
         displayElem.innerText = 'ERROR';
     return operator;
+}
+// --FUNCTION TO CHECK OPERATOR AND RETURN ERROR IF OPERATOR NOT IN OBJECT KEY
+const operatorCheck = (operator) => {
+    //adding multiple comparisons breaks this
+    if (operator !== "subtract"){
+        console.log (operator)
+        console.log (typeof operator);
+        displayElem.innerText = 'ERROR';
+    }else
+        console.log (operator)
 }
 
 const saveNum2 = ((buttonName) => {
