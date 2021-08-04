@@ -1,60 +1,29 @@
-// --CALCULATOR MATH FUNCTIONS--
-const add = ((num1, num2) => {
-    return num1 + num2;
-});
-
-const subtract = ((num1, num2) => {
-    return num1 - num2;
-});
-
-const multiply = ((num1, num2) => {
-    return num1 * num2;
-});
-
-const divide = ((num1, num2) => {
-    return num1 / num2;
-});
-
-// OPERATE FUNCTION WITH SWITCH STATEMENT
-/* 
-Wow! Eric tells me this is a great way to write this function. 
-It is so short and simple and nice. 
-Way to go, me (Ellen Jaquette).
-*/
-const operate = (operator, num1, num2) => {
-switch(operator) {
-    case '+':
-        return add(num1, num2);
-      break;
-    case '-':
-        return subtract(num1, num2);
-      break;
-    case 'x':
-        return multiply(num1, num2);
-      break;
-    case '/':
-        return divide(num1, num2);
-    break
-    default:
-       return 'ERROR';
-  } 
+//--ALL MATH FUNCTIONS--
+const MATH_FUNCS = {
+    add: (num1, num2) => num1 + num2,
+    subtract: (num1, num2) => num1 - num2,
+    multiply: (num1, num2) => num1 * num2,
+    divide: (num1, num2) => num1 / num2
 }
-// OPERATE COMMAND WITH IF/ELSE STATEMENT
-// const operate = ((operator, num1, num2) => {
-//     if (operator == '+') {
-//         return add(num1, num2);
-//     } else if (operator == '-') {
-//         return subtract(num1, num2);
-//     } else if (operator == 'x') {
-//         return multiply(num1, num2);
-//     } else(operator == '/')
-//     return divide(num1, num2);
 
-// })
 
 const calculateDisplay = () => {
 
-    const display = operate(operator, num1, num2);   
+/*
+
+ But one thing you'll also want to do is make it so that, if the "key" doesn't
+ exist in your lookup table, then you will want to set the display to
+ 'ERROR` here. 
+
+ Remember, you want to find the value of the appropriate key in the lookup table;
+ it will return a function.
+ You then want to run that function. You can do it all in one line (or two).
+ */
+    // if (operator != "add" || operator != "subtract"){
+    //     displayElem.innerText = 'ERROR'
+    // } else
+    let display = MATH_FUNCS[operator](num1, num2);
+
     displayElem.innerText = display;
 
 }
@@ -84,13 +53,23 @@ const operatorPush = (buttonPushed) => {
             button.addEventListener('click', saveNum2)
         });
     } else if (num1 !== '' && num2 !== '') {
-        num1 = operate(operator, num1, num2);
+        num1 = MATH_FUNCS[operator](num1, num2);
         operator = buttonPushed.target.id;
         console.log(num1);
         num2 = '';
     } else
         displayElem.innerText = 'ERROR';
     return operator;
+}
+// --FUNCTION TO CHECK OPERATOR AND RETURN ERROR IF OPERATOR NOT IN OBJECT KEY
+const operatorCheck = (operator) => {
+    //adding multiple comparisons breaks this
+    if (operator !== "subtract"){
+        console.log (operator)
+        console.log (typeof operator);
+        displayElem.innerText = 'ERROR';
+    }else
+        console.log (operator)
 }
 
 const saveNum2 = ((buttonName) => {
