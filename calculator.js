@@ -1,6 +1,3 @@
-
-
-
 /*
 OOOOOOHHH fancy. Looky here - it's an auto-invoking function whose return values
 will be an "object literal"! WTF? Why would we do this?
@@ -100,7 +97,7 @@ const MyCalculator = (() => {
 
   // Clear the display. Clear the subtotal.
   const startOver = () => {
-    newNumParts.length = 0;
+    clearNumParts()
     subtotal = null;
     operator = null;
     setDisplay(0);
@@ -133,8 +130,3 @@ const MyCalculator = (() => {
   return {init}
 })();
 // ^^^^ This is the auto-invoking part of this function.
-
-
-
-
-

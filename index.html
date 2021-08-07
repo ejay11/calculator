@@ -13,15 +13,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/2a44630a8b.js" crossorigin="anonymous"></script>
-    <script type="javascript" src="./calculator.js"></script>
     <!--
     We load up our JS above and then immediately tell the script to not
     do anything until the page (DOM) has loaded.
     https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event
     -->
+    <script defer src="calculator.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log("DOM fully loaded! Let's call the calulator!");
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log("DOM fully loaded! Let's call the calculator!");
             MyCalculator.init();
         });
     </script>
@@ -51,6 +51,4 @@
         <button type="button" class ="operator" id = "+"><i class="fas fa-plus" alt = "+" id ="add"></i></button>
     </div>
 </body>
-<script type="text/javascript" src="calculator.js"></script>
-
 </html>
