@@ -13,8 +13,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/2a44630a8b.js" crossorigin="anonymous"></script>
-    
-
+    <script type="javascript" src="./calculator.js"></script>
+    <!--
+    We load up our JS above and then immediately tell the script to not
+    do anything until the page (DOM) has loaded.
+    https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event
+    -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOM fully loaded! Let's call the calulator!");
+            MyCalculator.init();
+        });
+    </script>
 </head>
 
 <body>

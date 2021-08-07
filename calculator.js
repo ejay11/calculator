@@ -1,113 +1,140 @@
-//--ALL MATH FUNCTIONS--
-const MATH_FUNCS = {
-    add: (num1, num2) => num1 + num2,
-    subtract: (num1, num2) => num1 - num2,
-    multiply: (num1, num2) => num1 * num2,
-    divide: (num1, num2) => num1 / num2
-}
 
 
-const calculateDisplay = () => {
 
 /*
+OOOOOOHHH fancy. Looky here - it's an auto-invoking function whose return values
+will be an "object literal"! WTF? Why would we do this?
 
- But one thing you'll also want to do is make it so that, if the "key" doesn't
- exist in your lookup table, then you will want to set the display to
- 'ERROR` here. 
+In short, scoping. This keeps all our variables (except `calculator`), from
+being in the global scope of the page. If index.html adds more scripts besides
+this one, there is less chance that we will have a variable conflict!
 
- Remember, you want to find the value of the appropriate key in the lookup table;
- it will return a function.
- You then want to run that function. You can do it all in one line (or two).
+There's TONS to explain here, but it's pretty awesome.
  */
-    // if (operator != "add" || operator != "subtract"){
-    //     displayElem.innerText = 'ERROR'
-    // } else
-    let display = MATH_FUNCS[operator](num1, num2);
+const MyCalculator = (() => {
 
-    displayElem.innerText = display;
+  const newNumParts = [] // collects digits/decimals from user input
+  let operator = null; // the latest operator
+  let subtotal = null; // the running subtotal
 
-}
-//--SAVING INPUT AND DISPLAY FUNCTIONS--
+  /*
+  --ALL MATH FUNCTIONS--
+  These will be used later in this script.
+  */
+  const MATH_FUNCS = {
+    add: () => subtotal + getNewNum(),
+    subtract: () => subtotal - getNewNum(),
+    multiply: () => subtotal * getNewNum(),
+    divide: () => subtotal / getNewNum()
+  }
 
-let num1 = '';
-let num2 = '';
-let answer = '';
-let operator = [];
-let displayElem = document.querySelector('#display');
+  /*
+  Next, we grab all the elements off the screen using `querySelector` and
+  `querySelectorAll`.
+  https://www.w3schools.com/jsref/met_document_queryselector.asp
 
-const saveNum1 = ((buttonName) => {
-    num1 += buttonName.target.innerText;
-    displayElem.innerText = num1;
-    num1 = parseFloat(num1);
-    return num1;
-})
+  Then we assign the elements we find to a `const` variable; we won't be
+  re-assigning them again. Now the variables are sitting there, ready for us
+  to use and re-use them; there's no need to search the DOM again for the
+  elements more than once!
+  */
+  const calcButton = document.querySelector('#calculate');
+  const clearButton = document.querySelector('#clear');
+  const operatorElems = document.querySelectorAll('.operator');
+  const buttonElems = document.querySelectorAll('.calc-btn');
+  const displayElem = document.querySelector('#display');
 
-const operatorPush = (buttonPushed) => {
-    if (num1 !== '' && num2 == '') {
-        buttons.forEach((button) => {
-            button.removeEventListener('click', saveNum1)
-        });
-        operator = buttonPushed.target.id;
-        console.log(typeof operator);
-        buttons.forEach((button) => {
-            button.addEventListener('click', saveNum2)
-        });
-    } else if (num1 !== '' && num2 !== '') {
-        num1 = MATH_FUNCS[operator](num1, num2);
-        operator = buttonPushed.target.id;
-        console.log(num1);
-        num2 = '';
-    } else
-        displayElem.innerText = 'ERROR';
-    return operator;
-}
-// --FUNCTION TO CHECK OPERATOR AND RETURN ERROR IF OPERATOR NOT IN OBJECT KEY
-const operatorCheck = (operator) => {
-    //adding multiple comparisons breaks this
-    if (operator !== "subtract"){
-        console.log (operator)
-        console.log (typeof operator);
-        displayElem.innerText = 'ERROR';
-    }else
-        console.log (operator)
-}
+  // Retrieve/parse the number from the collected newNumParts
+  const getNewNum = () => {
+    return parseFloat(newNumParts.join(''))
+  }
 
-const saveNum2 = ((buttonName) => {
-    num2 += buttonName.target.innerText;
-    displayElem.innerText = num2;
-    num2 = parseFloat(num2);
-    return num2
-})
+  const clearNumParts = () => {
+    newNumParts.length = 0  // this clears the array. Dumb way to do it, I know.
+  }
 
-const startOver = () => {
-    num1 = '';
-    operator = '';
-    num2 = '';
-    displayElem.innerText = '0';
-    buttons.forEach((button) => {
-        button.removeEventListener('click', saveNum2)
+  /*
+    Actually does the magic of keeping a running subtotal
+    1. choose the right math function, based on the latest operator.
+    2. check that the subtotal is present and the new num is present as well
+    3. run that function, or if the operator isn't there, return an error.
+
+  */
+  const setSubtotal = () => {
+    const newNum = getNewNum()
+
+    if (subtotal === null) {
+      subtotal = newNum;
+      clearNumParts();
+      return
+    }
+
+    if (isNaN(newNum)) return // newNumParts is likely empty!
+
+    const mathFunc = MATH_FUNCS[operator]
+    if (!mathFunc) return 'ERROR!';
+
+    subtotal = mathFunc();
+    clearNumParts();
+  }
+
+  // Only job is to set the display to the `val`. simple!
+  const setDisplay = (val) => {
+    displayElem.innerText = val;
+  }
+
+  // Find the value. Set the display to that value!
+  const displayCalculation = () => {
+    setSubtotal();
+    setDisplay(subtotal);
+  }
+
+  /*
+    Sets the operator value.
+    But also, at the time the operator is pressed
+  */
+  const setOperator = (event) => {
+    setSubtotal()
+    operator = event.target.id;
+  }
+
+  // Clear the display. Clear the subtotal.
+  const startOver = () => {
+    newNumParts.length = 0;
+    subtotal = null;
+    operator = null;
+    setDisplay(0);
+  }
+
+  // Show the number pressed.
+  const collectNumParts = (event) => {
+    const part = event.target.innerText;
+    newNumParts.push(part);
+    setDisplay(getNewNum())
+  }
+
+  /*
+    We're doing all the things that need to happen at the beginning of the
+    script. This function will be called in index.html once the DOM is loaded.
+  */
+  const init = () => {
+    console.log("initializing...")
+    console.log("[initializing] adding event listeners...")
+    calcButton.addEventListener("click", displayCalculation);
+    clearButton.addEventListener("click", startOver);
+    operatorElems.forEach((operator) => {
+      operator.addEventListener('click', setOperator)
     });
-    buttons.forEach((button) => {
-        button.addEventListener('click', saveNum1)
+    buttonElems.forEach((button) => {
+      button.addEventListener('click', collectNumParts)
     });
-    return num1, operator, num2;
-}
+  }
 
-//--BUTTON EVENT LISTENERS--
-let buttons = document.getElementsByClassName('calc-btn');
-buttons = Array.from(buttons);
-buttons.forEach((button) => {
-    button.addEventListener('click', saveNum1)
-});
+  return {init}
+})();
+// ^^^^ This is the auto-invoking part of this function.
 
-let operators = document.getElementsByClassName('operator');
-operators = Array.from(operators);
-operators.forEach((operator) => {
-    operator.addEventListener('click', operatorPush)
-});
 
-let calculate = document.getElementById('calculate');
-calculate.addEventListener("click", calculateDisplay);
 
-let clearButton = document.getElementById('clear');
-clearButton.addEventListener("click", startOver);
+
+
