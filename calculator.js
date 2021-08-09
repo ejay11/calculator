@@ -1,14 +1,20 @@
 /*
-OOOOOOHHH fancy. Looky here - it's an auto-invoking function whose return values
-will be an "object literal"! WTF? Why would we do this?
+OOOOOOHHH fancy. Looky here - it's an Anonymous, Immediately-invoked function expression.
+Whose return values will be an "object literal"! WTF? Why would we do this?
 
-In short, scoping. This keeps all our variables (except `calculator`), from
+In short, scoping. This keeps all our variables , from
 being in the global scope of the page. If index.html adds more scripts besides
 this one, there is less chance that we will have a variable conflict!
 
 There's TONS to explain here, but it's pretty awesome.
+
+https://www.javascripttutorial.net/javascript-immediately-invoked-function-expression-iife/
+This function now returns NOTHING. But it runs right after it's defined.
+So there's no need to assign the output of this function to a [global] variable.
+
+There are now NO global variables that this script introduces!
  */
-const MyCalculator = (() => {
+(() => {
 
   const newNumParts = [] // collects digits/decimals from user input
   let operator = null; // the latest operator
@@ -127,6 +133,11 @@ const MyCalculator = (() => {
     });
   }
 
-  return {init}
+  // Here, we wait for the DOM to be ready, after which we run `init`.
+  // `init` is above, and it attaches event listeners to all the
+  // appropriate elements on the [now DOM-ready] page.
+  // If you remember, this event listener was in our index.html file, but now
+  // we've just put it here instead. CLEANER.
+  window.addEventListener('DOMContentLoaded', init)
 })();
 // ^^^^ This is the auto-invoking part of this function.
